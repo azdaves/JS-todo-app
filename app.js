@@ -5,8 +5,6 @@ const clearBtn = document.querySelector('.clear-tasks');
 const filter = document.querySelector('#filter');
 const taskInput = document.querySelector('#task');
 
-// Load all event listenerlsoadEventListeners();
-loadEventListeners() 
                          
 // Load all event listeners
 function loadEventListeners() {
@@ -14,7 +12,14 @@ function loadEventListeners() {
   form.addEventListener('submit', addTask);
   // Remove task event
   taskList.addEventListener('click', removeTask);
+  // Clear all tasks
+  clearBtn.addEventListener('click', clearTasks);
+  // Filter tasks
+  filter.addEventListener('keyup', filterTasks);
 }
+
+// Load all event listenerlsoadEventListeners();
+loadEventListeners() 
 
 // Add Task
 function addTask(e) {
@@ -53,4 +58,32 @@ function removeTask(e) {
       e.target.parentElement.parentElement.remove();
     }
   }
+}
+
+// Clear all tasks
+
+function clearTasks() {
+  // taskList.innerHTML = '';
+  while(taskList.firstChild) {
+    taskList.removeChild(taskList.firstChild);
+  }
+}
+
+// Filter tasks
+
+function filterTasks(e) {
+  const text = e.target.value.toLowerCase();
+
+  document.querySelectorAll('.collection-item').forEach(function(task){
+    const item = task.firstChild.textContent;
+    if(item.toLowerCase().indexOf(text) != -1){
+      task.style.display = 'block';
+    } else {
+      task.style.display = 'none';
+    }
+  });
+
+
+  console.log(text);
+  
 }
